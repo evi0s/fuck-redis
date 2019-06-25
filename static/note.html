@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes Manager </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Notes</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="note.html">Note</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    <div class = 'page-header' >
+        <h1 id="name">All Notes</h1>
+    </div>
+    <div class = 'page-body'>
+        <h2 id="gu"></h2>
+    </div>
+
+    <div class = 'page-header'>
+        <h1>Submit New Note</h1>
+    </div>
+    <div class = 'page-body'>
+        <div>
+            <form>
+                <p>Title</p>
+                <input id='submitTitle' />
+                <p>Content</p>
+                <input id='submitContent' />
+                <hr/>
+            </form>
+            <button id='submitNote'>Submit</button>
+        </div>
+        <h3 id="submitResult"></h3>
+    </div>
+
+    <div class = 'page-header'>
+        <h1>Search Note</h1>
+    </div>
+    <div class = 'page-body'>
+        <div>
+            <form>
+                <p>Title</p>
+                <input id='searchTitle' />
+                <hr/>
+            </form>
+            <button id='searchNote'>Submit</button>
+        </div>
+        <h3 id="searchResult"></h3>
+    </div>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(() => {
+        $.get('/api/notes', (data) => {
+            $('#gu').text(data.message);
+        });
+    });
+</script>
+<script type='text/javascript'>
+    $(() => {
+        $('#submitNote').click(() => {
+            $.post('/api/note', {
+                    title  : $('#submitTitle').val(),
+                    content: $('#submitContent').val()
+                }, (result) => {
+                    $('#submitResult').text(result.message);
+                }
+            );
+        });
+    });
+</script>
+<script type='text/javascript'>
+    $(() => {
+        $('#searchNote').click(() => {
+            $.get('/api/search', {
+                    title: encodeURI($('#searchTitle').val())
+                }, (result) => {
+                    $('#searchResult').text("Title: " + result.title + ", Content: " + result.content);
+                }
+            );
+        });
+    });
+</script>
+</body>
+</html>

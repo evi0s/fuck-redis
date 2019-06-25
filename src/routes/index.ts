@@ -14,6 +14,7 @@ indexRouter.get('/api', (ctx) => {
 
 
 indexRouter.post('/api/login', async (ctx) => {
+    ctx.set('Content-Type', 'application/json');
     let username = ctx.request.body.username;
     let password = ctx.request.body.password;
     console.log(username);
@@ -33,6 +34,7 @@ indexRouter.post('/api/login', async (ctx) => {
 
 
 indexRouter.post('/api/register', async (ctx) => {
+    ctx.set('Content-Type', 'application/json');
     let username = ctx.request.body.username;
     let password = ctx.request.body.password;
     console.log(username);
@@ -54,6 +56,7 @@ indexRouter.post('/api/register', async (ctx) => {
 
 
 indexRouter.post('/api/note', async (ctx) => {
+    ctx.set('Content-Type', 'application/json');
     let title   = ctx.request.body.title;
     let content = ctx.request.body.content;
     console.log(title);
@@ -69,6 +72,7 @@ indexRouter.post('/api/note', async (ctx) => {
 
 
 indexRouter.get('/api/note/:title', async (ctx) => {
+    ctx.set('Content-Type', 'application/json');
     let title = ctx.params.title;
     console.log(title);
 
@@ -88,6 +92,7 @@ indexRouter.get('/api/note/:title', async (ctx) => {
 
 
 indexRouter.get('/api/search', async (ctx) => {
+    ctx.set('Content-Type', 'application/json');
     let title = ctx.request.query.title;
     console.log(title);
 
@@ -107,6 +112,7 @@ indexRouter.get('/api/search', async (ctx) => {
 
 
 indexRouter.get('/api/admin', (ctx) => {
+    ctx.set('Content-Type', 'application/json');
     if (! ctx.session || ctx.session == null) {
         ctx.body = {"message": "Login first!"};
         return;
@@ -116,7 +122,24 @@ indexRouter.get('/api/admin', (ctx) => {
         ctx.body = {"message": "You are not ADMIN!"};
         return;
     }
-    ctx.body = "cnss{xxxxxxxxxxxxxxxxxxxxx}";
+    ctx.body = {"message": "OK!", "flag": "cnss{xxxxxxxxxxxxxxxxxxxxx}"};
+});
+
+
+indexRouter.get('/api/notes', (ctx) => {
+    ctx.set('Content-Type', 'application/json');
+    ctx.body = {"message": "Yes! I gugugued this!\nAnd, by this time you can't see all notes you have submitted...\nBut, I'm sure that I have stored your note."};
+});
+
+
+indexRouter.get('/api/status', (ctx) => {
+    ctx.set('Content-Type', 'application/json');
+    if (! ctx.session || ctx.session == null || ! ctx.session.username) {
+        ctx.body = {"message": "No session!"};
+        return;
+    }
+    console.log(ctx.session);
+    ctx.body = xss(`{"message": "OK!", "username": "${ctx.session.username}"}`);
 });
 
 
