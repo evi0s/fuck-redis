@@ -1,0 +1,45 @@
+{
+  "name": "fuck-redis",
+  "version": "1.0.0",
+  "description": "Fuck Redis",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evi0s/fuck-redis.git"
+  },
+  "keywords": [
+    "redis"
+  ],
+  "author": "evi0s",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evi0s/fuck-redis/issues"
+  },
+  "homepage": "https://github.com/evi0s/fuck-redis#readme",
+  "dependencies": {
+    "@types/ioredis": "^4.0.12",
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-helmet": "^3.1.2",
+    "@types/koa-json": "^2.0.18",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.0.41",
+    "@types/koa-static": "^4.0.1",
+    "ioredis": "^4.10.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-helmet": "^4.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.12.0",
+    "koa-static": "^5.0.0",
+    "koa2-session-redis": "^0.0.2",
+    "xss": "^1.0.6"
+  }
+}
