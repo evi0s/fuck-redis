@@ -8,6 +8,9 @@ WORKDIR /app
 
 ADD . /app
 
+RUN useradd -d /app www && \
+    chown -R www.www /app
+
 RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 3000

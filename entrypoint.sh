@@ -6,7 +6,4 @@
 # Install typescript
 npm i typescript -g
 
-# Install depds
-yarn
-
-exec npm start
+exec su - www -c "yarn && npm start"
