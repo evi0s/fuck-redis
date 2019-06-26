@@ -27,6 +27,10 @@ indexRouter.post('/api/login', async (ctx) => {
         ctx.throw(500, {"message": "Error in processing your request!"});
     }
     console.log(result);
+    if (! result) {
+        ctx.body = {"message": "Username or Password Error!"};
+        return;
+    }
     ctx.session.username = username;
     ctx.session.isAdmin  = false;
     ctx.body = xss(`{"message": "OK!", "username": "${username}"}`);
@@ -48,7 +52,7 @@ indexRouter.post('/api/register', async (ctx) => {
     }
     console.log(result);
     if (! result) {
-        ctx.body = xss(`{"message": "Username Already Existed!"}`);
+        ctx.body = {"message": "Username Already Existed!"};
         return;
     }
     ctx.body = xss(`{"message": "OK!", "username": "${username}"}`);
@@ -67,7 +71,7 @@ indexRouter.post('/api/note', async (ctx) => {
     } catch (err) {
         ctx.throw(500, {"message": "Error in processing your request!"});
     }
-    ctx.body = xss(`{"message": "OK!"}`);
+    ctx.body = {"message": "OK!"};
 });
 
 
@@ -84,7 +88,8 @@ indexRouter.get('/api/note/:title', async (ctx) => {
     }
     console.log(result);
     if (! result) {
-        ctx.throw(500, {"message": "Error in processing your request!"});
+        // ctx.throw(500, {"message": "Error in processing your request!"});
+        ctx.body = {"message": "No Such note!"};
         return;
     }
     ctx.body = xss(`{"message": "OK!", "title": "${title}", "content": "${result}"}`);
@@ -104,7 +109,8 @@ indexRouter.get('/api/search', async (ctx) => {
     }
     console.log(result);
     if (! result) {
-        ctx.throw(500, {"message": "Error in processing your request!"});
+        // ctx.throw(500, {"message": "Error in processing your request!"});
+        ctx.body = {"message": "No Such note!"};
         return;
     }
     ctx.body = xss(`{"message": "OK!", "title": "${title}", "content": "${result}"}`);

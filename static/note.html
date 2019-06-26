@@ -99,6 +99,10 @@
             $.get('/api/search', {
                     title: encodeURI($('#searchTitle').val())
                 }, (result) => {
+                    if (result.message !== "OK!") {
+                        $('#searchResult').text(result.message);
+                        return;
+                    }
                     $('#searchResult').text("Title: " + result.title + ", Content: " + result.content);
                 }
             );
