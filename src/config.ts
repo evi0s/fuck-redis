@@ -10,6 +10,7 @@ let redishost    = env.REDIS_HOST               || 'localhost';
 let redisport    = parseInt(env.REDIS_PORT)     ||  6379;
 let sessmaxage   = parseInt(env.SESS_MAXAGE)    ||  86400000;
 let passwordsalt = env.PASSWORD_SALT            || 'test';
+let flag         = env.FLAG                     || 'cnss{xxxxxxxxxxxxxxxx}';
 
 let sesskey: Array<string> = ['test'];
 if ( env.SESS_KEY ) {
@@ -23,5 +24,6 @@ export {
     redisport,
     sessmaxage,
     sesskey,
-    passwordsalt
+    passwordsalt,
+    flag
 }

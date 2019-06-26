@@ -4,6 +4,8 @@ let xss = require('xss');
 import * as noteController from '../controller/noteController';
 import * as userController from '../controller/userController';
 
+import { flag } from '../config';
+
 
 const indexRouter = new Router();
 
@@ -128,7 +130,7 @@ indexRouter.get('/api/admin', (ctx) => {
         ctx.body = {"message": "You are not ADMIN!"};
         return;
     }
-    ctx.body = {"message": "OK!", "flag": "cnss{xxxxxxxxxxxxxxxxxxxxx}"};
+    ctx.body = {"message": "OK!", "flag": flag};
 });
 
 
@@ -144,7 +146,7 @@ indexRouter.get('/api/status', (ctx) => {
         ctx.body = {"message": "No session!"};
         return;
     }
-    console.log(ctx.session);
+    // console.log(ctx.session);
     ctx.body = xss(`{"message": "OK!", "username": "${ctx.session.username}"}`);
 });
 
