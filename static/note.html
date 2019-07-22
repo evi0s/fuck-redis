@@ -33,42 +33,48 @@
 <div class="container">
 
     <div class = 'page-header' >
+        <h1 id="banner">Please Login first.</h1>
+    </div>
+
+    <div class = 'page-header' >
         <h1 id="name">All Notes</h1>
     </div>
     <div class = 'page-body'>
         <h2 id="gu"></h2>
     </div>
 
-    <div class = 'page-header'>
-        <h1>Submit New Note</h1>
-    </div>
-    <div class = 'page-body'>
-        <div>
-            <form>
-                <p>Title</p>
-                <input id='submitTitle' />
-                <p>Content</p>
-                <input id='submitContent' />
-                <hr/>
-            </form>
-            <button id='submitNote'>Submit</button>
+    <div id="content" style="display: none">
+        <div class = 'page-header'>
+            <h1>Submit New Note</h1>
         </div>
-        <h3 id="submitResult"></h3>
-    </div>
+        <div class = 'page-body'>
+            <div>
+                <form>
+                    <p>Title</p>
+                    <input id='submitTitle' />
+                    <p>Content</p>
+                    <input id='submitContent' />
+                    <hr/>
+                </form>
+                <button id='submitNote'>Submit</button>
+            </div>
+            <h3 id="submitResult"></h3>
+        </div>
 
-    <div class = 'page-header'>
-        <h1>Search Note</h1>
-    </div>
-    <div class = 'page-body'>
-        <div>
-            <form>
-                <p>Title</p>
-                <input id='searchTitle' />
-                <hr/>
-            </form>
-            <button id='searchNote'>Submit</button>
+        <div class = 'page-header'>
+            <h1>Search Note</h1>
         </div>
-        <h3 id="searchResult"></h3>
+        <div class = 'page-body'>
+            <div>
+                <form>
+                    <p>Title</p>
+                    <input id='searchTitle' />
+                    <hr/>
+                </form>
+                <button id='searchNote'>Submit</button>
+            </div>
+            <h3 id="searchResult"></h3>
+        </div>
     </div>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -77,6 +83,12 @@
     $(document).ready(() => {
         $.get('/api/notes', (data) => {
             $('#gu').text(data.message);
+        });
+        $.get('/api/status', (data) => {
+            if (data.message === "OK!") {
+                $('#banner').text("Hello, " + data.username);
+                $('#content').show()
+            }
         });
     });
 </script>

@@ -68,6 +68,11 @@ indexRouter.post('/api/note', async (ctx) => {
     console.log(title);
     console.log(content);
 
+    if (! ctx.session || ctx.session == null || ! ctx.session.username) {
+        ctx.throw(401, {"message": "Please login first!"});
+        return
+    }
+
     try {
         await noteController.submitNote(title, content);
     } catch (err) {
@@ -81,6 +86,11 @@ indexRouter.get('/api/note/:title', async (ctx) => {
     ctx.set('Content-Type', 'application/json');
     let title = ctx.params.title;
     console.log(title);
+
+    if (! ctx.session || ctx.session == null || ! ctx.session.username) {
+        ctx.throw(401, {"message": "Please login first!"});
+        return
+    }
 
     let result: any;
     try {
@@ -102,6 +112,11 @@ indexRouter.get('/api/search', async (ctx) => {
     ctx.set('Content-Type', 'application/json');
     let title = ctx.request.query.title;
     console.log(title);
+
+    if (! ctx.session || ctx.session == null || ! ctx.session.username) {
+        ctx.throw(401, {"message": "Please login first!"});
+        return
+    }
 
     let result: any;
     try {
